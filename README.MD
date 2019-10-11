@@ -1,0 +1,1 @@
+# Example C# .NET Core 3.0.100 for connect MySQL via Linq2DB
