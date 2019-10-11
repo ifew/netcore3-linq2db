@@ -1,13 +1,15 @@
-# Example C# .NET Core 3.0.100 for connect MySQL via Linq2DB
+# Example AWS Lambda C# .NET Core 2.2 with connect MySQL via Linq2db
 
-## Run
+## Test and Deploy with AWS CLI
 
-```bash
-dotnet run
+**Deploy**
+```
+$ cd src/aws-lambda-db
+$ dotnet lambda deploy-function {LAMBDA_FUNCTION_NAME} –-function-role {ROLE_NAME}
 ```
 
-## Run with Ready2Run
-
-```bash
-dotnet run -r [RuntimeIdentifier such as linux-x64, osx-x64]
+**Try to Run and Get result**
+```
+$ cd src/aws-lambda-db
+$ aws lambda invoke --function-name {LAMBDA_FUNCTION_NAME} output.txt
 ```

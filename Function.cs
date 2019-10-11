@@ -7,14 +7,17 @@ using LinqToDB.Common;
 using LinqToDB.Mapping;
 using LinqToDB.Configuration;
 using System.Linq;
-using Newtonsoft.Json;
+using Amazon.Lambda.Core;
+using Amazon.Lambda.Serialization.Json;
 
-namespace netcore3_linq2db
+[assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
+
+namespace aws_lambda_linq2db
 {
     public class Function
     {
 
-        public static void Main(string[] args)
+        public static List<Member> FunctionHandler(ILambdaContext context)
         {
             Console.WriteLine("Log: Start Connection");
 
@@ -24,21 +27,21 @@ namespace netcore3_linq2db
 
             using (var db = new DBConnection())
             {
-                Console.WriteLine("Log: After get DBConnection()");
+                Console.WriteLine("Log: After new Lab()");
 
                 var query = from m in db.Member
                             orderby m.Id descending
                             select m;
-                
+
                 Console.WriteLine("Log: After Linq Query");
 
                 List<Member> members = query.ToList();
 
-                Console.WriteLine("Log: After query ToList");
+                Console.WriteLine("Log: After query and get list");
 
-                Console.WriteLine("Log: Count: " + members.Count );
+                Console.WriteLine("Log: Count: " + members.Count);
                 
-                Console.WriteLine("Log: Result: " + JsonConvert.SerializeObject(members));
+                return members;
             };
         }
     }
